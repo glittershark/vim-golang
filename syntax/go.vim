@@ -205,3 +205,10 @@ hi def link     goSpaceError        Error
 syn sync minlines=500
 
 let b:current_syntax = "go"
+
+" Highlight function names
+" Thanks to https://groups.google.com/d/msg/golang-nuts/z2qXo2IQipg/3yXteBIx67MJ
+syn match  goFunctionName "\([A-Z]\|[a-z_]\)\w*("he=e-1 contained
+syn region goFunctionDefinition start="^func\s\+" end="\s\+{" contains=goFunctionName
+
+hi def link goFunctionName Function
