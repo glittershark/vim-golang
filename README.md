@@ -1,7 +1,11 @@
 vim-gocode
 ==========
 
-All credit goes to [nsf/code](http://github.com/nsf/gocode)
+My fork of the central repository for golang in vim
+
+I've mostly been improving syntax highlighting - extra regions, matches, etc. here and there, plus highlighting delimiters - ()[]{}
+
+In the long run I'd like to add a plugin to also highlight user-defined types. That's a bit more ambitious though.
 
 ## Commands
 
