@@ -55,7 +55,7 @@ hi def link     goDirective         Statement
 hi def link     goDeclaration       Keyword
 hi def link     goDeclType          Keyword
 
-" Keywords within functions
+" Keywords within functions {{{
 syn keyword     goStatement         defer go goto return break continue fallthrough
 syn keyword     goConditional       if else switch select
 syn keyword     goLabel             case default
@@ -65,8 +65,9 @@ hi def link     goStatement         Statement
 hi def link     goConditional       Conditional
 hi def link     goLabel             Label
 hi def link     goRepeat            Repeat
+" }}}
 
-" Predefined types
+" Predefined types {{{
 syn keyword     goType              chan map bool string error
 syn keyword     goSignedInts        int int8 int16 int32 int64 rune
 syn keyword     goUnsignedInts      byte uint uint8 uint16 uint32 uint64 uintptr
@@ -78,21 +79,23 @@ hi def link     goSignedInts        Type
 hi def link     goUnsignedInts      Type
 hi def link     goFloats            Type
 hi def link     goComplexes         Type
+" }}}
 
 " Treat func specially: it's a declaration at the start of a line, but a type
 " elsewhere. Order matters here.
 syn match       goType              /\<func\>/
 syn match       goDeclaration       /^func\>/
 
-" Predefined functions and values
+" Predefined functions and values {{{
 syn keyword     goBuiltins          append cap close complex copy delete imag len
 syn keyword     goBuiltins          make new panic print println real recover
 syn keyword     goConstants         iota true false nil
 
 hi def link     goBuiltins          Keyword
 hi def link     goConstants         Keyword
+" }}}
 
-" Comments; their contents
+" Comments; their contents {{{
 syn keyword     goTodo              contained TODO FIXME XXX BUG NOTE
 syn cluster     goCommentGroup      contains=goTodo
 syn region      goComment           start="/\*" end="\*/" contains=@goCommentGroup,@Spell
@@ -100,8 +103,9 @@ syn region      goComment           start="//" end="$" contains=@goCommentGroup,
 
 hi def link     goComment           Comment
 hi def link     goTodo              Todo
+" }}}
 
-" Go escapes
+" Go escapes {{{
 syn match       goEscapeOctal       display contained "\\[0-7]\{3}"
 syn match       goEscapeC           display contained +\\[abfnrtv\\'"]+
 syn match       goEscapeX           display contained "\\x\x\{2}"
@@ -116,26 +120,30 @@ hi def link     goEscapeU           goSpecialString
 hi def link     goEscapeBigU        goSpecialString
 hi def link     goSpecialString     Special
 hi def link     goEscapeError       Error
+" }}}
 
-" Strings and their contents
+" Strings and their contents {{{
 syn cluster     goStringGroup       contains=goEscapeOctal,goEscapeC,goEscapeX,goEscapeU,goEscapeBigU,goEscapeError
 syn region      goString            start=+"+ skip=+\\\\\|\\"+ end=+"+ contains=@goStringGroup
 syn region      goRawString         start=+`+ end=+`+
 
 hi def link     goString            String
 hi def link     goRawString         String
+" }}}
 
-" Characters; their contents
+" Characters; their contents {{{
 syn cluster     goCharacterGroup    contains=goEscapeOctal,goEscapeC,goEscapeX,goEscapeU,goEscapeBigU
 syn region      goCharacter         start=+'+ skip=+\\\\\|\\'+ end=+'+ contains=@goCharacterGroup
 
 hi def link     goCharacter         Character
+" }}}
 
-" Regions
+" Regions {{{
 syn region      goBlock             start="{" end="}" transparent fold
 syn region      goParen             start='(' end=')' transparent
+" }}}
 
-" Integers
+" Integers {{{
 syn match       goDecimalInt        "\<\d\+\([Ee]\d\+\)\?\>"
 syn match       goHexadecimalInt    "\<0x\x\+\>"
 syn match       goOctalInt          "\<0\o\+\>"
@@ -145,22 +153,26 @@ hi def link     goDecimalInt        Integer
 hi def link     goHexadecimalInt    Integer
 hi def link     goOctalInt          Integer
 hi def link     Integer             Number
+" }}}
 
-" Floating point
+" Floating point {{{
 syn match       goFloat             "\<\d\+\.\d*\([Ee][-+]\d\+\)\?\>"
 syn match       goFloat             "\<\.\d\+\([Ee][-+]\d\+\)\?\>"
 syn match       goFloat             "\<\d\+[Ee][-+]\d\+\>"
 
 hi def link     goFloat             Float
+" }}}
 
-" Imaginary literals
+" Imaginary literals {{{
 syn match       goImaginary         "\<\d\+i\>"
 syn match       goImaginary         "\<\d\+\.\d*\([Ee][-+]\d\+\)\?i\>"
 syn match       goImaginary         "\<\.\d\+\([Ee][-+]\d\+\)\?i\>"
 syn match       goImaginary         "\<\d\+[Ee][-+]\d\+i\>"
 
 hi def link     goImaginary         Number
+" }}}
 
+" Errors {{{
 " Spaces after "[]"
 if go_highlight_array_whitespace_error != 0
   syn match goSpaceError display "\(\[\]\)\@<=\s\+"
@@ -176,14 +188,6 @@ if go_highlight_chan_whitespace_error != 0
   syn match goSpaceError display "\(\(^\|[={(,;]\)\s*<-\)\@<=\s\+"
 endif
 
-" Extra types commonly seen
-if go_highlight_extra_types != 0
-  syn match goExtraType /\<bytes\.\(Buffer\)\>/
-  syn match goExtraType /\<io\.\(Reader\|Writer\|ReadWriter\|ReadWriteCloser\)\>/
-  syn match goExtraType /\<reflect\.\(Kind\|Type\|Value\)\>/
-  syn match goExtraType /\<unsafe\.Pointer\>/
-endif
-
 " Space-tab error
 if go_highlight_space_tab_error != 0
   syn match goSpaceError display " \+\t"me=e-1
@@ -194,8 +198,29 @@ if go_highlight_trailing_whitespace_error != 0
   syn match goSpaceError display excludenl "\s\+$"
 endif
 
-hi def link     goExtraType         Type
 hi def link     goSpaceError        Error
+" }}}
+
+" Extra types commonly seen {{{
+if go_highlight_extra_types != 0
+  syn match goExtraType /\<bytes\.\(Buffer\)\>/
+  syn match goExtraType /\<io\.\(Reader\|Writer\|ReadWriter\|ReadWriteCloser\)\>/
+  syn match goExtraType /\<reflect\.\(Kind\|Type\|Value\)\>/
+  syn match goExtraType /\<unsafe\.Pointer\>/
+endif
+
+hi def link     goExtraType         Type
+" }}}
+
+syn match	  goBraces	   "[{}\[\]]"
+syn match	  goParens	   "[()]"
+syn match	  goOpSymbols	   "=\{1,2}\|!=\|<\|>\|>=\|<=\|++\|+=\|--\|-="
+syn match   goLogicSymbols "\(&&\)\|\(||\)"
+
+hi def link goBraces	     Function
+hi def link goParens	     Operator
+hi def link goOpSymbols    Operator
+hi def link goLogicSymbols Boolean
 
 " Search backwards for a global declaration to start processing the syntax.
 "syn sync match goSync grouphere NONE /^\(const\|var\|type\|func\)\>/
@@ -206,9 +231,13 @@ syn sync minlines=500
 
 let b:current_syntax = "go"
 
-" Highlight function names
+" Highlight function names {{{
 " Thanks to https://groups.google.com/d/msg/golang-nuts/z2qXo2IQipg/3yXteBIx67MJ
 syn match  goFunctionName "\([A-Z]\|[a-z_]\)\w*("he=e-1 contained
 syn region goFunctionDefinition start="^func\s\+" end="\s\+{" contains=goFunctionName
 
 hi def link goFunctionName Function
+" }}}
+
+" vim: set fdm=marker
+
