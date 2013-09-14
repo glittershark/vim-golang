@@ -93,7 +93,7 @@ hi def link     goBuiltins          Keyword
 hi def link     goConstants         Keyword
 
 " Comments; their contents
-syn keyword     goTodo              contained TODO FIXME XXX BUG
+syn keyword     goTodo              contained TODO FIXME XXX BUG NOTE
 syn cluster     goCommentGroup      contains=goTodo
 syn region      goComment           start="/\*" end="\*/" contains=@goCommentGroup,@Spell
 syn region      goComment           start="//" end="$" contains=@goCommentGroup,@Spell
@@ -205,3 +205,10 @@ hi def link     goSpaceError        Error
 syn sync minlines=500
 
 let b:current_syntax = "go"
+
+" Highlight function names
+" Thanks to https://groups.google.com/d/msg/golang-nuts/z2qXo2IQipg/3yXteBIx67MJ
+syn match  goFunctionName "\([A-Z]\|[a-z_]\)\w*("he=e-1 contained
+syn region goFunctionDefinition start="^func\s\+" end="\s\+{" contains=goFunctionName
+
+hi def link goFunctionName Function
