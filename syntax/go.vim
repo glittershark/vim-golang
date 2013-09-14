@@ -209,6 +209,6 @@ let b:current_syntax = "go"
 " Highlight function names
 " Thanks to https://groups.google.com/d/msg/golang-nuts/z2qXo2IQipg/3yXteBIx67MJ
 syn match  goFunctionName "\([A-Z]\|[a-z_]\)\w*("he=e-1 contained
-syn region goFunctionDefinition start="^func\s\+" end="\s\+{" contains=goFunctionName
+syn region goFunctionDefinition start="^func\s\+"ms=s+4 end="\s\+{" contains=goFunctionName
 
 hi def link goFunctionName Function
